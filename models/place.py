@@ -1,21 +1,9 @@
 #!/usr/bin/env python3
 """Defines the Place class."""
 import models
-from os import getenv
-from models.amenity import Amenity
 from models.base_model import Base, BaseModel
-from models.review import Review
-from sqlalchemy import Column, Float, ForeignKey, Integer, String, Table
+from sqlalchemy import Column, Float, Integer, String
 from sqlalchemy.orm import relationship
-
-
-association_table = Table("place_amenity", Base.metadata,
-                          Column("place_id", String(60),
-                                 ForeignKey("places.id"),
-                                 primary_key=True, nullable=False),
-                          Column("amenity_id", String(60),
-                                 ForeignKey("amenities.id"),
-                                 primary_key=True, nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -35,9 +23,6 @@ class Place(BaseModel, Base):
         price_by_night (sqlalchemy Integer): The price by night.
         latitude (sqlalchemy Float): The place's latitude.
         longitude (sqlalchemy Float): The place's longitude.
-        reviews (sqlalchemy relationship): The Place-Review relationship.
-        amenities (sqlalchemy relationship): The Place-Amenity relationship.
-        amenity_ids (list): An id list of all linked amenities.
     """
     __tablename__ = "places"
     city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
@@ -50,4 +35,3 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, default=0, nullable=False)
     latitude = Column(Float)
     longitude = Column(Float)
-    amenity_ids = []
