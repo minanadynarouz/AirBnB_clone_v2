@@ -2,12 +2,12 @@
 """ holds class User"""
 
 from models.base_model import BaseModel, Base
-import sqlalchemy
 from sqlalchemy import Column, String
 
 
 class User(BaseModel, Base):
     """Representation of a user """
+
     __tablename__ = "users"
     email = Column(String(128), nullable=False)
     password = Column(String(128), nullable=False)
