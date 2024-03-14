@@ -1,27 +1,34 @@
 #!/usr/bin/python3
-"""
-    delete files on server
-"""
-import time
-from fabric.context_managers import cd
-from fabric.api import local
-from fabric.api import get
-from fabric.api import put
-from fabric.api import reboot
-from fabric.api import run
-from fabric.api import sudo
-from fabric.api import env
-env.hosts = ['34.224.95.253', '52.91.153.147']
+"""web server distribution"""
+from fabric.api import *
+from fabric.state import commands, connections
+import os.path
+
+env.user = 'ubuntu'
+env.hosts = ["18.233.63.75", "54.160.98.1"]
+env.key_filename = "~/id_rsa"
 
 
 def do_clean(number=0):
-    """
-        delete all files except most recent one, first if
-        delete all files except two most recent one, else
-    """
-    if number == 0 or number == 1:
-        local('ls -t /versions | tail -n +2 | xargs rm')
-        run('ls -t /data/web_static/releases | tail -n +2 | xargs rm')
+    """deletes out-of-date archives"""
+    local('ls -t ~/AirBnB_Clone_V2/versions/').split()
+    with cd("/data/web_static/releases"):
+        target_R = sudo("ls -t .").split()
+    paths = "/data/web_static/releases"
+    number = int(number)
+    if number == 0:
+        num = 1
     else:
-        local('ls -t /versions | tail -n +3 | xargs rm')
-        run('ls -t /data/web_static/releases | tail -n +2 | xargs rm')
+        num = number
+    if len(target_R) > 0:
+        if len(target) == number or len(target) == 0:
+            pass
+        else:
+            cl = target[num:]
+            for i in range(len(cl)):
+                local('rm -f ~/AirBnB_Clone_V2/versions/{}'.format(target[-1]))
+        rem = target_R[num:]
+        for j in range(len(rem)):
+            sudo('rm -rf {}/{}'.format(paths, rem[-1].strip(".tgz")))
+    else:
+        pass
