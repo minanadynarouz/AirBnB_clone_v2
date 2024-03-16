@@ -73,4 +73,8 @@ def deploy():
     file = do_pack()
     if file is None:
         return False
-    return do_deploy(file)
+    if do_deploy(file):
+        print("New version deployed!")
+        return True
+    else:
+        return False
