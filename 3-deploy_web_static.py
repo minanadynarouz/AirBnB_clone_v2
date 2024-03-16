@@ -11,16 +11,20 @@ env.hosts = ['18.233.63.75', '54.160.98.1']
 
 
 def do_pack():
-    """generates a tgz archive"""
-    try:
-        date = datetime.now().strftime("%Y%m%d%H%M%S")
-        if isdir("versions") is False:
-            local("mkdir versions")
-        file_name = "versions/web_static_{}".format(date)
-        local("tar -cvzf {} web_static".format(file_name))
-        return file_name
-    except:
-        return False
+    """Create a tar gzipped archive of the directory web_static."""
+    dt = datetime.utcnow()
+    file = "versions/web_static_{}{}{}{}{}{}.tgz".format(dt.year,
+                                                         dt.month,
+                                                         dt.day,
+                                                         dt.hour,
+                                                         dt.minute,
+                                                         dt.second)
+    if os.path.isdir("versions") is False:
+        if local("mkdir -p versions").failed is True:
+            return None
+    if local("tar -cvzf {} web_static".format(file)).failed is True:
+        return None
+    return file
 
 def do_deploy(archive_path):
     """Distributes an archive to a web server.
@@ -61,6 +65,7 @@ def do_deploy(archive_path):
            format(name)).failed is True:
         return False
     return True
+
 
 def deploy():
     """Create and distribute an archive to a web server."""
