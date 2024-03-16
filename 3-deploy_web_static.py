@@ -26,6 +26,7 @@ def do_pack():
         return None
     return file
 
+
 def do_deploy(archive_path):
     """Distributes an archive to a web server.
 
