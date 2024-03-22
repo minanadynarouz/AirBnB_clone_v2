@@ -6,6 +6,7 @@ app = Flask(__name__)
 
 @app.route('/', strict_slashes=False)
 def display_hbnb():
+	"""returns Hello HBNB!"""
 	return <p>"Hello HBNB!"</p>
 
 
