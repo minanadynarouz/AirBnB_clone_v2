@@ -46,15 +46,18 @@ def html_tag(n):
     return render_template('5-number.html', n=n)
 
 
-@app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
-def odd_even_page(n):
-    """Display odd or even based on value in the path"""
-    if n % 2 == 0:
-        int_type = 'even'
-    else:
-        int_type = 'odd'
-    return render_template('6-number_odd_or_even.py', n=n,
-                           int_type=int_type)
+@app.route("/number_odd_or_even/<int:n>", strict_slashes=False)
+def number_odd_or_even(n):
+    """
+    Route to /number_odd_or_even/ return a template
+    indicating in n is odd or even
+    """
+    if isinstance(n, int):
+        if n % 2 == 0:
+            text = "Number: {} is even".format(n)
+        else:
+            text = "Number: {} is odd".format(n)
+        return render_template("6-number_odd_or_even.html", text=text)
 
 
 if __name__ == '__main__':
