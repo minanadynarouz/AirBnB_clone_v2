@@ -4,8 +4,6 @@ starts a Flask web application
 """
 
 from flask import Flask, render_template
-
-
 app = Flask(__name__)
 
 
@@ -23,40 +21,38 @@ def hbnb():
 
 @app.route('/c/<text>', strict_slashes=False)
 def cisfun(text):
-    """display “C ” followed by the value of the text var"""
-    text = text.replace('_', ' ')
-    return "C {}".format(text)
+    """display “C ” followed by the value of the text variable"""
+    return 'C ' + text.replace('_', ' ')
 
 
 @app.route('/python', strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
-def python(text="is cool"):
-    """display “Python ” followed by the value of the text var"""
-    text = text.replace('_', ' ')
-    return "Python {}".format(text)
+def pythoniscool(text='is cool'):
+    """display “Python ”, followed by the value of the text variable"""
+    return 'Python ' + text.replace('_', ' ')
 
 
 @app.route('/number/<int:n>', strict_slashes=False)
-def number(n):
-    """Display Number only if integer"""
-    return "{} is a number".format(n)
+def imanumber(n):
+    """display “n is a number” only if n is an integer"""
+    return "{:d} is a number".format(n)
 
 
 @app.route('/number_template/<int:n>', strict_slashes=False)
-def html_tag(n):
-    """Return html H1 tag"""
+def numbersandtemplates(n):
+    """display a HTML page only if n is an integer"""
     return render_template('5-number.html', n=n)
 
 
 @app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
-def odd_even_page(n):
-    """Display odd or even based on value in the path"""
+def numbersandevenness(n):
+    """display a HTML page only if n is an integer"""
     if n % 2 == 0:
-        int_type = 'even'
+        evenness = 'even'
     else:
-        int_type = 'odd'
-    return render_template('6-number_odd_or_even.py', n=n, int_type=int_type)
-
+        evenness = 'odd'
+    return render_template('6-number_odd_or_even.html', n=n,
+                           evenness=evenness)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')
