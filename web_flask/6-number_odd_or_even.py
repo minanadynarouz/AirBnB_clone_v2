@@ -51,7 +51,11 @@ def html_tag(n):
 @app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
 def odd_even_page(n):
     """Display odd or even based on value in the path"""
-    return render_template('6-number_odd_or_even.py', n=n)
+    if n % 2 == 0:
+        int_type = 'even'
+    else:
+        int_type = 'odd'
+    return render_template('6-number_odd_or_even.py', n=n, int_type=int_type)
 
 
 if __name__ == '__main__':
