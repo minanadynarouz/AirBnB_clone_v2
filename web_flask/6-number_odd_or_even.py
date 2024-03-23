@@ -55,7 +55,8 @@ def odd_even_page(n):
         int_type = 'even'
     else:
         int_type = 'odd'
-    return render_template('6-number_odd_or_even.py', n=n, int_type=int_type)
+    return render_template('6-number_odd_or_even.py', n=n,
+                           int_type=int_type)
 
 
 if __name__ == '__main__':
